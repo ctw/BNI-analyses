@@ -1,0 +1,157 @@
+﻿Experiment Descriptions and Abbreviations
+
+
+Ambiguous Figures - af
+
+Images presented are figures which can be viewed two ways, such as the face-vase illustration, and are presented for 1 minute. The subject indicates verbally which image appears first and then presses a button for each transition between the two images.
+
+9 experiments
+
+Bilingual Continuous Recognition Memory - bl
+
+Pairs of written words are shown, spaced at randomly chosen intervals within the sequence of words in the experiment. The second element of a pair may appear in either the same or different language (English or Spanish) as the first presentation. The subject must indicate, for each word, whether they have seen it before in the experiment. The objective is to test how the neural representation of memory for words changes when bilingual subjects are asked to read and remember words in both Spanish and English.
+
+8 experiments
+
+Blurred Pictures - bp
+
+Images drawn from five categories (animal, face, tool, outdoor scene, building) were shown at decreasing levels of low-pass blurring, from unrecognizable to unblurred. The task was to press a button with one hand for faces, another button with the other hand for non-faces. The use of dominant and non-dominant hands for faces was counter-balanced over subjects, but not within the experiment.
+
+9 experiments
+
+Category Contrast - cc
+
+Images drawn from five categories (animal, face, tool, outdoor scene, building) are shown where the brightness and contrast of the images has been normalized for the images or for the distribution of brightness and contrast in each stimulus set. The use of dominant and non-dominant hands for faces was counter-balanced over subjects, but not within the experiment.
+
+22 experiments
+
+Conflict Flankers - cf
+
+Two images were shown in each trial, a center image and a larger image on both sides of the smaller image. The subjects task was to indicate whether the center image showed a living, animate, item. Trials were balanced so that half had conflict in terms of animate or not between the center and flanking images and half of the trials did not. The presentation times were adjusted to produce a large number of error trials. The experiment was designed to examine the neural correlates of conflict and error, particularly in the anterior cingulate gyrus.
+
+46 experiments
+
+Continuous Recognition Memory - cr
+
+Pairs of written words are shown, spaced at randomly chosen intervals within the sequence of words in the experiment. The second element of a pair may appear in either the same or different font as the first presentation. The subject must indicate, for each word, whether they have seen it before in the experiment. The objective is to determine the single neuron correlates of recollection of linguistic forms and how they vary with lag between items and changes in superficial characteristics, such as font.
+
+49 experiments
+
+Emotional Face - ef
+
+Images of synthetic faces showing happy, sad or neutral expressions are shown for 1 second each. The expressions are generated to fall on a continuum between happy and sad. The faces are also clearly caucasian, black, or ambiguous race. The subjects task is to indicate which expression is shown by choosing one of 3 buttons. The objective is to measure neural responses to faces within and outside the subjects racial group, particularly in the amygdala.
+
+46 experiments
+
+Episodic Image - ei
+
+A sequence of 64 images of famous people and landmarks is shown to the subject. After a 5 minute break, subjects are shown an image and asked to rate on an 8 point scale how confident they are that the image was in the sequence shown previously. When rated as an old image, subjects are also asked to provide a remember/know/guess subjective estimate of their confidence. This experiment was designed to measure the single neuron correlates of human episodic memory for images, rather than words.
+
+11 experiments
+
+Eye Movement - em
+
+Subjects were asked to alternate shift their eyes from center to left, back to center, center to right, back to center, timed to the presentation of each picture, which appeared for 1 second. The objective was to assess the effect of eye movement alone on responses.
+
+3 experiments
+
+Head Movement - hm
+
+Subjects were asked to alternately rotate their heads from center to left and back, to the right and back, timed to the presentation of each picture, which appeared for 1 second. An observer pressed a key at the start of each head movement. The objective was to assess the effect of head movement alone on recorded responses. 
+
+2 experiments
+
+Head Position - hp
+
+Subjects were asked to move their heads from center to left, to the center, to the right and then back, timed to the presentation of each picture, which appeared for 1 second. An observer pressed a key at the start of each head position. The objective was to assess the effect of head position alone on recorded category selective visual responses. 
+
+1 experiment
+
+Invariant Representation - ir
+
+In this experiment subjects viewed images of 12 objects drawn from the categories animals, landmarks, and people in up to 3 viewing sessions. In the second and third sessions, 1/2 of the objects were the same as in the first session and 1/2 were new. The second session was normally performed later on the same day as the first and the third session was normally performed the following morning. This experiment was designed to examine how single neuron representations of objects changed with repetition and the passage of time.
+
+50 experiment sessions
+
+Object Invariance – oi 
+
+11 Images from 3 categories(animals, landmarks, and people) are presented for 1 second in random order. Each stimulus set will contain 4 representatives of each concept, 3 photographic and 1 text. The subject's task is to press a button with one hand for images and names that represent a person and the other hand for images and names that does not represent a person. 
+
+32 experiments
+
+Rock Gutman - rg
+
+Images of two overlapping items, in two different colors (red and green), are presented for brief 200 ms intervals. The subject was asked to pay attention to only one color and indicate by pressing a button whether the image in that color was a human face (right hand button = face, left hand button = not a face). 
+
+25 experiments
+
+Remember Know - rk
+
+Subjects are shown a list of 32 words, with each word being shown near the top or bottom of the screen and shown for 2000 ms. Subjects are asked to memorize the words. After a five minute break, patients are shown a series of words and asked to indicate for each how confident they are on a 1-8 scale that the word was in the prior list they viewed. For words where the subject believes the word was previously seen, they are asked to provide a subjective evaluation of confidence as being remember, know, or guess. They are also asked to indicate whether the word was shown at the top of bottom of the screen. This experiment was designed to measure the single neuron correlates of human episodic memory for words.
+
+36 experiments
+
+Rossion Pourtois - rp
+
+Images from 7 categories(clothing, faces, fruit, four-footed animals, insect, kitchen utensil, and vegetable) are presented. The subject will be asked to press a button with one hand when an image represents a human face and the other hand to press a button when the image does not represent a human face.
+
+#CTW edit: this appears to be the full set of categories in the data file: 'Bird', 'Body part', 'Clothing', 'Face', 'Four-footed animal', 'Fruit', 'Furniture', 'Insect', 'Instrument', 'Kitchen utensil', 'Tool', 'Toy', 'Vegetable'
+
+
+
+37 experiments
+
+Split Category - sc
+
+Subjects observed images from the standard multiple category set. The task was to press a button with one hand for a face, and a button with the other hand for a non-face. Halfway through the recording session, the hand used to indicate a face was changed. The purpose is to determine the contribution of the hand being used to make the response to category selective visual responses.
+
+# CTW edit: Buildings', 'animal', 'animals', 'building/landmark', 'emotional_faces', 'famous', 'famous-photos', 'inside scene', 'neutral_faces', 'outside scene'
+
+
+
+21 experiments
+
+Symbolic Press - sp
+
+Subjects were asked to press a button with the left hand in response to any of the letter L, a left facing arrow, or a red square appearing on the screen; and to press a button with the right hand in response to any of the letter R, a right facing arrow, or a green square appearing on the screen. The purpose is to test for neural responses to making a movement with a particular hand, regardless of the symbolic cue for the movement.
+
+12 experiments
+
+Spoken Recognition Memory - sr
+
+Pairs of spoken words are played, spaced at randomly chosen intervals within the sequence of words in the experiment. The second element of a pair may play in either the same voice or a different voice as the first presentation. The subject must indicate, for each word, whether they have heard it before in the experiment. The objective is to determine the single neuron correlates of recollection of linguistic forms and how they vary with lag between items and changes in superficial characteristics, such as voice.
+
+30 experiments
+
+Screening Task - st
+
+The subject is shown a series of images, each for 1000 ms. The images were either faces of young people or pictures of items of low interest to people with autism, such as tools, plants, or animals, or of high interest to autistics, such as clocks, cars, fractals. Each image was shown in two sizes and at two different luminance levels; faces were shown in either an upright or inverted position. 20% of images were repeats of the immediately preceding image and the subject's task was to indicate whether the image was an immediate repeat of its successor by pressing a key. This experiment was designed to screen for object, face, or emotion selective neurons in the human brain.
+
+17 experiments
+
+Test Data - td
+
+Abbreviation used for recordings where the subject wasn't doing a task, for technical debugging purposes.
+
+203 sessions
+
+Test Recording - tr
+
+Abbreviation used for test recordings, where subject is not involved.
+
+2 sessions
+
+Variable Instruction - vi
+
+Subjects were shown images of common items drawn from the Rossion-Pourtois set. The images were with color or grayscale. The subject's task changed in blocks, from indicating whether the image was in color or grayscale, a low level property, or was an item which could be obtained at a major discount store, a high level property, or a task unrelated to the images being shown, such as simply pressing the key, or passively viewing the images. This experiment was designed to assess how neural responses depended on the specific motor action being taken and whether the decision engaged higher proce
+
+13 experiments
+
+Variable Times - vt
+
+Images from the set used for category selectivity are presented for different intervals of time, typcially 200, 500, and 800 ms. The subject's task is to press a button with one hand for human faces, and the other hand for images which are not faces. This to test the hypothesis that the category selective visual responses of neurons are dependent on the amount of duration of image presentation.
+
+19 experiments
+
+---
+Last updated 23 Mar 16 Peter N. Steinmetz

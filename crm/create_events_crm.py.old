@@ -1,0 +1,321 @@
+import numpy as np
+import gzip
+from glob import glob
+
+
+rhino_root = '/home/ctw/fusemounts/rhino'
+
+data_dir = rhino_root+'/scratch/josh/BniData/Subjects'
+
+open_funcs = {'gz': gzip.open, 'txt': open}
+
+
+dat_files = {}
+dat_files['cr'] = glob(data_dir+'/s???/data/s*e*cr/CrmLog_*')
+
+
+ev_dtypes = [('exp', 'S8'), ('subject', np.int), ('session', np.int), ('word', 'S32'),
+             ('exptime', np.int), ('evtype', 'S16'), ('stim_file', 'S32'),
+             ('stim_type', 'S32'), ('stim_cat', 'S32'), ('stim_syll', 'S32'),
+             ('stim_num', 'S32'), ('response', 'S32'), ('response_rt', np.int),
+             ('confidence', np.int), ('confidence_rt', np.int)]
+
+
+datfile = dat_files['cr'][-1]
+
+
+
+stim_dict = {}
+key_dict = {}
+exp_dict = {}
+game_dict_parse = False
+game_dict_used = False # to ignore empty lines right after section header
+ev_parse = False
+ev_parse_used = False
+#lines = []
+subjevs = []
+with open_funcs[datfile.split('.')[-1]](datfile, 'rt') as f:
+    for line in f:
+        #lines.append(line)
+        if 'The Game Dictionary' in line:
+            game_dict_parse = True
+            continue
+        elif 'LOCALTIME EVENT PARAMETER' in line:
+            ev_parse = True
+            continue
+            #print('found')
+        if line.strip() == '':
+            if game_dict_used:
+                game_dict_parse = False
+            if ev_parse_used:
+                ev_parse = False
+            continue
+            #print('empty')
+        if game_dict_parse:
+            game_dict_used = True
+            if 'Image' in line:
+                stim_params = line.split(' ')
+                stim_dict[stim_params[0]] = {}
+                stim_dict[stim_params[0]]['stim_file'] = stim_params[2]
+                stim_dict[stim_params[0]]['stim_cat'] = stim_params[2].split('_')[0]
+                stim_dict[stim_params[0]]['stim_syll'] = stim_params[2].split('_')[1].split('.')[0]
+                stim_dict[stim_params[0]]['stim_num'] = stim_params[2].split('_')[1].split('.')[1]
+            elif 'key' in line:
+                key_params = line.split(' ')
+                key_dict[key_params[0]] = {}
+                if 'old' in line:
+                    key_dict[key_params[0]]['response'] = 'old'
+                elif 'new' in line:
+                    key_dict[key_params[0]]['response'] = 'new'
+                elif 'other' in line:
+                    key_dict[key_params[0]]['response'] = 'other'
+                else:
+                    raise ValueError('Unknown key parameter: '+line)
+            elif 'Synchronize Server' in line:
+                exp_params = line.split(' ')
+                if 'Start' in line:
+                    exp_dict[exp_params[0]]['evtype'] = 'synch_start'
+                elif 'End' in line:
+                    exp_dict[exp_params[0]]['evtype'] = 'synch_end'
+                else:
+                    raise ValueError('Unknown exp parameter: '+line)
+            elif 'Phase' in line:
+                exp_params = line.split(' ')
+                if 'Start' in line:
+                    exp_dict[exp_params[0]]['evtype'] = 'phase_start'
+                # elif 'End' in line:
+                #     exp_dict[exp_params[0]]['evtype'] = 'phase_end'
+                else:
+                    raise ValueError('Unknown exp parameter: '+line)
+            elif 'Recognition' in line:
+                exp_params = line.split(' ')
+                if 'Started' in line:
+                    exp_dict[exp_params[0]]['evtype'] = 'recog_start'
+                elif 'Stopped' in line:
+                    exp_dict[exp_params[0]]['evtype'] = 'recog_end'
+                else:
+                    raise ValueError('Unknown exp parameter: '+line)
+            else:
+                raise ValueError('Unknown Game Dictionary parameter: '+line)
+        #
+        #
+        # parsing events:
+        #
+        elif ev_parse:
+            ev_parse_used = True
+            exptime, expcode, exppar = line.split()
+            exptime = np.int(exptime)
+            exppar = np.int(exppar)
+            subjevs.append(exptime)
+            
+            
+            
+                    
+                    
+                    
+        if ev_parse:
+            ev_parse_used = True
+            
+
+
+
+
+
+
+
+
+
+
+# file constants
+HEADER_SIZE = 16 * 1024
+BLOCK_SIZE = 512
+
+
+
+
+
+
+
+
+                           
+#channel_file =  '/home/ctw/fusemounts/rhino/scratch/josh/BniData/Subjects/s030/analysis/s30e5cr/CSC4.Ncs'
+channel_file =  '/home/ctw/fusemounts/rhino/scratch/josh/BniData/Subjects/s024/analysis/s24e3cr/CSC15.Ncs'
+
+                           
+def stat_ncs(channel_file):
+    """
+
+    Parameters
+    ----------
+    channel_file: str
+        Path to an ncs neuralynx file
+
+    Returns
+    -------
+    dict
+        A dictionary with the file's header parameters
+
+    """
+    header_keys = [('NLX_Base_Class_Type', None),
+                   ('AmpHiCut', float),
+                   ('ADChannel', None),
+                   ('ADGain', float),
+                   ('AmpGain', float),
+                   ('SubSamplingInterleave', int),
+                   ('ADMaxValue', int),
+                   ('ADBitVolts', float),
+                   ('SamplingFrequency', float),
+                   ('AmpLowCut', float),
+                   ('HardwareSubSystemName', None),
+                   ('HardwareSubSystemType', None)]
+
+    # load header from file
+    with open(channel_file, 'rb') as f:
+        txt_header = f.read(HEADER_SIZE)
+    txt_header = txt_header.strip(b'\x00').decode('latin-1')
+
+    # find values and make dict
+    info = {}
+    for k, type_ in header_keys:
+        pattern = '-(?P<name>' + k + ')\t(?P<value>[\S ]*)'
+        matches = re.findall(pattern, txt_header)
+        for match in matches:
+            name = match[0]
+            val = match[1].rstrip(' ')
+            if type_ is not None:
+                val = type_(val)
+            info[name] = val
+    return info
+
+
+def load_ncs(channel_file):
+    """
+
+    Parameters
+    ----------
+    channel_file: str
+        Path to an ncs neuralynx file
+
+    Returns
+    -------
+    signals: np.ndarry
+        The eeg data for this channel, length is the number of samples
+    timestamps: np.ndarry
+        The timestamp (in microseconds) corresponding to each sample
+    sr: float
+        the sampleing rate of the data
+
+    """
+
+    # load header info
+    info = stat_ncs(channel_file)
+
+    # define datatype for memmap
+    ncs_dtype = [('timestamp', 'uint64'), ('channel', 'uint32'), ('sample_rate', 'uint32'),
+                 ('nb_valid', 'uint32'), ('samples', 'int16', (BLOCK_SIZE,))]
+
+    # load it all at once... sorry.
+    data = np.memmap(channel_file, dtype=ncs_dtype, mode='r', offset=HEADER_SIZE)
+
+    # loop over each block and create timestamps for each sample
+    signals = []
+    timestamps = []
+    for this_block in data:
+        # extend our list of the data
+        signals.extend(this_block[4])
+
+        # create timestamps for each sample in this block
+        timestamps_block = np.linspace(this_block[0], this_block[0] + (1e6 / this_block[2] * (BLOCK_SIZE - 1)),
+                                       BLOCK_SIZE)
+        timestamps.append(timestamps_block)
+
+    # get our final arrays
+    timestamps = np.concatenate(timestamps)
+    signals = np.array(signals)
+
+    # convert to microvolts
+    signals = signals * info['ADBitVolts'] * 1e6
+
+    actual_samplerate = 1e6 / (np.mean(np.diff([x[0] for x in data]))/BLOCK_SIZE)
+    #info['SamplingFrequency']
+    return signals, timestamps, actual_samplerate
+
+
+
+
+channel_file =  '/home/ctw/fusemounts/rhino/scratch/josh/BniData/Subjects/s030/analysis/s30e5cr/KK/CSC4.Nse'
+
+def load_nse(channel_file, return_waveforms=False):
+    """
+
+    Parameters
+    ----------
+    channel_file: str
+        Path to an nse neuralynx file (NOTE: not ncs file)
+    return_waveforms: bool
+        Whether to return as a second output the spike waveforms
+
+    Returns
+    -------
+    timestamps: numpy.ndarray
+        An array of timestamps when spikes occured
+    spike_waveforms: numpy.ndarray
+        If return_waveforms, num spikes x 32 array
+    """
+
+    # nse dtype
+    dtype = [('timestamp', 'uint64'), ('channel', 'uint32'), ('unit_id', 'uint32')]
+    dtype += [('params', 'uint32', (8,))]
+    dtype += [('samples', 'uint16', (32,))]
+
+    # load spiking data
+    data = np.memmap(channel_file, dtype=dtype, mode='r', offset=HEADER_SIZE)
+
+    # get timestamps
+    #timestamps = np.array([x[0] for x in data])
+
+    #return data
+    # get spike waveforms
+    #return np.array([x[0] for x in data]), np.array([x[1] for x in data]), 
+    if return_waveforms:
+        #spike_waveforms = np.array([x[4] for x in data])
+        #return timestamps, spike_waveforms
+        return np.array(data['timestamp']), np.array(data['samples'])
+    else:
+        # return timestamps
+        return np.array(data['timestamp'])
+
+
+
+
+
+
+
+cluster_file = '/home/ctw/fusemounts/rhino/scratch/josh/BniData/Subjects/s030/analysis/s30e5cr/KK/CSC4.clu.1'
+
+def load_cluster_ids(cluster_file):
+    """
+
+    Parameters
+    ----------
+    cluster_file: str
+        Path to a 'clusters' file in the .get_subj_files_by_sess() dict This is .clu file with the IDs of the spikes.
+
+    Returns
+    -------
+    np.ndarray
+        Array with an integers representing the cluser of ID of each spike
+
+    """
+
+    # return array of cluster IDs, skipping the first entry which is not a cluster ID
+    return np.fromfile(cluster_file, dtype=int, sep='\n')[1:]
+
+
+
+
+
+# How is Ncs file preprocessed?
+# How does Cluster ID in clusterInfo txt relate to NSE filenames / channels
+# overview of different files?
+
