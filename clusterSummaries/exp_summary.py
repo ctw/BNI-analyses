@@ -2,6 +2,7 @@
 Summarize information for clusters in one experiment type.
 """
 from glob import glob
+import logging
 import os
 
 import numpy as np
@@ -17,7 +18,14 @@ def expSummary(bniSubjectsDir, logFilePattern, bad_exps):
     :return pd.DataFrame with information for each cluster
     """
 
-    logFiles = sorted(glob(bniSubjectsDir + '/s???/data/s*e*ir/' + logFilePattern))
+    logFiles = sorted(glob(bniSubjectsDir + '/s???/data/' + logFilePattern))
+
+    # Exclude original _fixed log files as per sr/create_events_sr.py. In these data sets
+    # that only matters for sr experiments.
+    for lf in logFiles:
+        if lf[:-4] + '_fixed.txt' in logFiles:
+            print(f"excluding {lf} as fixed copy exists")
+            logFiles.remove(lf)
 
     df = pd.DataFrame()
 
@@ -26,7 +34,7 @@ def expSummary(bniSubjectsDir, logFilePattern, bad_exps):
         expstr = datfile.split('/')[-2]
         if expstr in bad_exps:
             continue
-        print(f"{datfile}, {subj}, {expstr}")
+        logging.info(f"{datfile}, {subj}, {expstr}")
 
         # generate list of nse files
         nsefiles = sorted(glob(bniSubjectsDir + subj + '/analysis/' + expstr + '/KK/CSC?.Nse'))
@@ -57,7 +65,7 @@ def expSummary(bniSubjectsDir, logFilePattern, bad_exps):
                     dtype={'names': ('expstr', 'cluster_id',
                                      'hemisphere', 'area', 'quality'),
                            'formats': ('U16', 'U16', 'U8', 'U8', 'U16')})
-            except IndexError:
+            except ValueError:
                 clusterinfo = np.loadtxt(
                     clusterinfo_file, delimiter='\t', skiprows=1,
                     dtype={'names': ('cluster_id', 'hemisphere',
@@ -82,7 +90,6 @@ def expSummary(bniSubjectsDir, logFilePattern, bad_exps):
             chan = nsefile.split('.Nse')[0]
             channum = int(chan.split('CSC')[-1])
 
-            numclusts = np.fromfile(clusterfile, dtype=int, sep='\n')[0]
             sess_clusts = np.fromfile(clusterfile, dtype=int, sep='\n')[1:]
 
             for cluster_num in np.unique(sess_clusts):
