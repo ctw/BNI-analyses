@@ -40,7 +40,7 @@ def expSummary(h5FileName):
                 hemisphere = cluster['hemisphere'].decode('utf-8')
                 quality = qualityMap[cluster['clustype'].decode('utf-8')]
 
-                row = pd.DataFrame(data={'expStr':expstr, 'cluster_id':clusterId,
+                row = pd.DataFrame(data={'expstr':expstr, 'cluster_id':clusterId,
                                          'hemisphere':hemisphere,  'area':area,
                                          'quality':quality},
                                    index=[i])
