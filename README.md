@@ -35,10 +35,11 @@ BniData/{subject}/data/{expID} directories by the ir/create_events_ir.py script.
 results is then stored in the ./data/bni_evs_ir.npz file.
 
 Spike counts are calculated from all .Nse files which have a corresponding .clu.1 file
-available by ir/spike_pattern_reps_and_cats.py.
+available by ir/spike_pattern_reps_and_cats.py. 
 
 Cluster information is extracted from the corresponding clusterInfo.txt files and only 
-clusters which are POTENTIAL or SPIKE are used.
+clusters which are POTENTIAL or SPIKE are used. Clusters without information in the
+clusterInfo.txt file were ignored for further analysis.
 
 ### overall analyses and graphs
 
