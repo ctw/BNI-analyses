@@ -25,8 +25,20 @@ extant crm/create_events_crm.py.old file.
 
 Spike counts are calculated and used in k-means fitting in both spike_pattern.py and 
 spike_pattern_firstsecond.py. This occurs for all the .Nse files for all experiments for which 
-the events have been isolated. The names of clusters are then combinded with 
+the events have been isolated. The names of clusters are then combined with 
 the brain areas in a 'cluster' numpy array but it is unclear where this is stored or output. 
+
+### ir - invariant recognition
+
+Events in the experiment are extracted from the IRLog_*.txt files in the corresponding
+BniData/{subject}/data/{expID} directories by the ir/create_events_ir.py script. The 
+results is then stored in the ./data/bni_evs_ir.npz file.
+
+Spike counts are calculated from all .Nse files which have a corresponding .clu.1 file
+available by ir/spike_pattern_reps_and_cats.py.
+
+Cluster information is extracted from the corresponding clusterInfo.txt files and only 
+clusters which are POTENTIAL or SPIKE are used.
 
 ### overall analyses and graphs
 
