@@ -24,7 +24,7 @@ def expSummary(bniSubjectsDir, logFilePattern, bad_exps):
     # that only matters for sr experiments.
     for lf in logFiles:
         if lf[:-4] + '_fixed.txt' in logFiles:
-            print(f"excluding {lf} as fixed copy exists")
+            logging.warning(f"excluding {lf} as fixed copy exists")
             logFiles.remove(lf)
 
     df = pd.DataFrame()
@@ -57,7 +57,6 @@ def expSummary(bniSubjectsDir, logFilePattern, bad_exps):
 
         # get cluster quality, area, etc.
         clusterinfo_file = (bniSubjectsDir + subj + '/analysis/' + expstr + '/clusterInfo.txt')
-        clusterinfo = None
         if os.path.exists(clusterinfo_file):
             try:
                 clusterinfo = np.loadtxt(
@@ -79,7 +78,7 @@ def expSummary(bniSubjectsDir, logFilePattern, bad_exps):
                     'clusterinfo expstr 1'
                 assert clusterinfo['expstr'][0] == expstr, 'clusterinfo expstr 2'
         else:
-            print(f'Skipping -- no clusterinfo file {clusterinfo_file}')
+            logging.warning(f'Skipping -- no clusterinfo file {clusterinfo_file}')
             continue
 
         # consolidate information for each cluster that was analyzed
