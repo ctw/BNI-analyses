@@ -51,4 +51,4 @@ df = reberExpSummary('/Users/Shared/Mormann/abstractRepresentationsInMTL/zvals_t
 df['expType'] = 'rb'
 allDf = pd.concat([allDf, df])
 
-allDf.to_csv('analyzedClusters.txt', sep='\t', index=False)
+allDf.to_csv('../results/analyzedClusters.txt', sep='\t', index=False)
